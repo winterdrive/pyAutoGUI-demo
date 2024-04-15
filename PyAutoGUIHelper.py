@@ -125,6 +125,12 @@ class PyAutoGUIHelper:
         pyautogui.screenshot(filename)
         return self
 
+    def clipboard_and_paste(self, string: str):
+        import pyperclip
+        string_to_paste = string
+        pyperclip.copy(string_to_paste)
+        return self
+
     def __str__(self):
         """Returns a string representation of the class."""
         return "PyAutoGUIHelper: A helper class for automating tasks using PyAutoGUI."
