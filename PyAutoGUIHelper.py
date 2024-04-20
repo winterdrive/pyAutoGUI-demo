@@ -2,6 +2,7 @@ import os
 import time
 import datetime
 import pyautogui
+import pyperclip
 
 """
 請確保已安裝 pyautogui：!pip install pyautogui，
@@ -125,8 +126,19 @@ class PyAutoGUIHelper:
         pyautogui.screenshot(filename)
         return self
 
-    def clipboard_and_paste(self, string: str):
-        import pyperclip
+    def copy(self):
+        pyautogui.hotkey('ctrl', 'c')
+        return self
+
+    def paste(self):
+        pyautogui.hotkey('ctrl', 'v')
+        return self
+
+    def select_all(self):
+        pyautogui.hotkey('ctrl', 'a')
+        return self
+
+    def paste_to_clipboard(self, string: str):
         string_to_paste = string
         pyperclip.copy(string_to_paste)
         return self
@@ -144,4 +156,5 @@ if __name__ == '__main__':
     """
     helper = PyAutoGUIHelper()
     # 使用 ChatGPT 文字輸入位置 (1202, 965)
-    helper.show_mouse_position().run_chatgpt(start_position=(1202, 965)).create_a_screen_shot()
+    helper.show_mouse_position()
+    # .run_chatgpt(start_position=(1202, 965)).create_a_screen_shot()
