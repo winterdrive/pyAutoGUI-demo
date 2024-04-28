@@ -1,2 +1,6 @@
 screenshot/
 .idea/
+photo/
+dataframe/
+venv/
+*.pyc

@@ -39,7 +39,7 @@ class PyAutoGUIHelper:
         pyautogui.dragTo(x, y, duration=duration, button=button)
         return self
 
-    def move_mouse_to(self, x, y, duration=1.5):
+    def move_mouse_to(self, x, y, duration=0.5):
         """
         將滑鼠移動至指定位置
         """

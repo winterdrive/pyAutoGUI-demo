@@ -5,7 +5,10 @@ import math
 import requests
 import json
 from PyAutoGUIHelper import PyAutoGUIHelper
-from config import UNSPLASH_ACCESS_KEY, EXCEL_FILE_PATH, CALENDER_POSITIONS, CALENDER_ROW_AND_COLUMN, LOCAL_PHOTO_DIRECTORY, MY_INDESIGN_BUTTON_POSITIONS
+
+EXCEL_FILE_PATH = "D:\\Users\\Downloads\\2024電影曆_編輯內容.xlsx"
+UNSPLASH_ACCESS_KEY = "bGW_6q4TAp_kKs1X3ZKD3F4wlOqY5pgHEPu92B0m4Uc"
+
 
 def read_csv_file(file_path: str) -> None:
     """Reads a CSV file and prints each row."""
@@ -26,8 +29,37 @@ def get_x_y_cell(df: pd.DataFrame, row_number: int, column_number: int):
     return df.iloc[row_number, column_number]
 
 
+my_calender_positions = {
+    "月份": [1184, 271],
+    "星期": [1365, 266],
+    "農曆": [1367, 284],
+    "倒數日": [1572, 269],
+    "日期": [1317, 471],
+    "宜忌": [1348, 604],
+    "節日": [1331, 650],
+    "歷史": [1325, 672],
+    "語錄": [1324, 802],
+    "作者": [1362, 965],
+    "影視作品": [1356, 936]
+}
 
-def replace_cell_text(helper: PyAutoGUIHelper, value: str, position: Tuple[int, int]) -> None:
+my_calender_row_and_column = {
+    "月份": [0, 0],
+    "星期": [0, 1],
+    "農曆": [0, 2],
+    "倒數日": [0, 3],
+    "日期": [0, 4],
+    "宜忌": [0, 5],
+    "節日": [0, 6],
+    "歷史": [0, 7],
+    "語錄": [0, 8],
+    "作者": [0, 9],
+    "影視作品": [0, 10],
+
+}
+
+
+def single_run(helper: PyAutoGUIHelper, value: str, position: Tuple[int, int]) -> None:
     """Performs a series of actions in a GUI."""
     x, y = position
     helper.move_mouse_to(x, y, 0.2)
@@ -61,48 +93,6 @@ def get_unsplash_image(photo_id: str) -> None:
         print('Failed to download the image.')
 
 
-def single_run(helper: PyAutoGUIHelper, excel_data: pd.DataFrame, data_row_number: int = 0):
-
-    # # 取得圖片下載網址
-    from urllib.parse import urlparse, unquote
-    photo_url = get_x_y_cell(excel_data, data_row_number, 11)
-    parsed_url = urlparse(photo_url)
-    path = parsed_url.path 
-    photo_id = path.split('/')[-1]
-    # get_unsplash_image(photo_id)
-
-    # 塞入底圖
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["左側工具列_選取工具"]).double_click_left()
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["展示區任意點"]).single_click_left()
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["上方工具列_檔案"]).single_click_left()
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["檔案_置入"]).double_click_left()
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["檔案_置入_檔案路徑"]).single_click_left().paste_to_clipboard(LOCAL_PHOTO_DIRECTORY).paste().press_key('enter')
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["檔案_置入_檔名"]).single_click_left().paste_to_clipboard(f"{photo_id}.jpg").paste().press_key('enter')
-   
-    # 填入各欄位
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["左側工具列_直接選取工具"])
-    helper.single_click_left()
-    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["展示區任意點"]).single_click_left()
-    my_dict_keys = CALENDER_ROW_AND_COLUMN.keys()
-    for key in my_dict_keys:
-        # if key != "月份":
-        #     return
-        current_x = CALENDER_POSITIONS[key][0]
-        current_y = CALENDER_POSITIONS[key][1]
-        target_row = data_row_number
-        target_column = CALENDER_ROW_AND_COLUMN[key][1]
-        my_input = get_x_y_cell(excel_data, target_row, target_column)
-        if type(my_input) is float and math.isnan(my_input):
-            my_input = " "
-        if key == "日期":
-            replace_cell_text(helper, format_with_zeros(int(my_input)), (current_x, current_y))
-        else:
-            replace_cell_text(helper, str(my_input), (current_x, current_y))
-
-    # 保留截圖以供下次檢查定位點
-    helper.create_a_screen_shot()
-
-
 def main():
     # # 圖片下載
     # # https://unsplash.com/photos/3RIhxkIOBcE
@@ -111,18 +101,53 @@ def main():
     # # 查定位點
     # helper = PyAutoGUIHelper()
     # helper.show_mouse_position()
-    
-    # # 運行任務
+
+
+
     # 自動化任務
     helper = PyAutoGUIHelper()
 
     # 讀取Excel資料
     excel_data = read_excel_file(EXCEL_FILE_PATH)
 
-    todo_rows = range(0, 1)
+    # # 取得圖片下載網址
+    from urllib.parse import urlparse, unquote
+    photo_url = get_x_y_cell(excel_data, 0, 11)
+    parsed_url = urlparse(photo_url)
+    path = parsed_url.path 
+    photo_id = path.split('/')[-1]
+    # get_unsplash_image(photo_id)
 
-    for i in todo_rows:
-        single_run(helper=helper, excel_data=excel_data, data_row_number=i)
+    LOCAL_PHOTO_DIRECTORY = "E:\驅動程式\pyAutoGUI-demo-master\photo"
+
+    # 塞入底圖
+    helper.move_mouse_to(997,231).double_click_left()
+    helper.move_mouse_to(1190,449).single_click_left()
+    helper.move_mouse_to(997,65).single_click_left()
+    helper.move_mouse_to(1108,399).double_click_left()
+    helper.move_mouse_to(1069,260).single_click_left().paste_to_clipboard(LOCAL_PHOTO_DIRECTORY).paste().press_key('enter')
+    helper.move_mouse_to(840,772).single_click_left().paste_to_clipboard(f"{photo_id}.jpg").paste().press_key('enter')
+
+    # 填入各欄位
+    helper.move_mouse_to(994, 271)
+    helper.single_click_left()
+    helper.move_mouse_to(1190,449).single_click_left()
+    my_dict_keys = my_calender_row_and_column.keys()
+    for key in my_dict_keys:
+        # if key != "月份":
+        #     return
+        current_x = my_calender_positions[key][0]
+        current_y = my_calender_positions[key][1]
+        target_row = my_calender_row_and_column[key][0]
+        target_column = my_calender_row_and_column[key][1]
+        my_input = get_x_y_cell(excel_data, target_row, target_column)
+        if type(my_input) is float and math.isnan(my_input):
+            my_input = " "
+        if key == "日期":
+            single_run(helper, format_with_zeros(int(my_input)), (current_x, current_y))
+        else:
+            single_run(helper, str(my_input), (current_x, current_y))
+
 
 if __name__ == "__main__":
     main()
