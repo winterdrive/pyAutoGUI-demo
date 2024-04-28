@@ -102,27 +102,30 @@ def single_run(helper: PyAutoGUIHelper, excel_data: pd.DataFrame, data_row_numbe
     # 保留截圖以供下次檢查定位點
     helper.create_a_screen_shot()
 
+    # 建立新圖
+    # todo
+
 
 def main():
     # # 圖片下載
     # # https://unsplash.com/photos/3RIhxkIOBcE
     # get_unsplash_image("3RIhxkIOBcE")
 
-    # # 查定位點
-    # helper = PyAutoGUIHelper()
-    # helper.show_mouse_position()
-    
-    # # 運行任務
-    # 自動化任務
+    # 查定位點
     helper = PyAutoGUIHelper()
+    helper.show_mouse_position()
+    
+    # # # 運行任務
+    # # 自動化任務
+    # helper = PyAutoGUIHelper()
 
-    # 讀取Excel資料
-    excel_data = read_excel_file(EXCEL_FILE_PATH)
+    # # 讀取Excel資料
+    # excel_data = read_excel_file(EXCEL_FILE_PATH)
 
-    todo_rows = range(0, 1)
+    # todo_rows = range(0, 1)
 
-    for i in todo_rows:
-        single_run(helper=helper, excel_data=excel_data, data_row_number=i)
+    # for i in todo_rows:
+    #     single_run(helper=helper, excel_data=excel_data, data_row_number=i)
 
 if __name__ == "__main__":
     main()
