@@ -61,6 +61,14 @@ def get_unsplash_image(photo_id: str) -> None:
         print('Failed to download the image.')
 
 
+def create_new_page(helper: PyAutoGUIHelper) -> None:
+    """Creates a new page in InDesign."""
+    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["右側工具列_頁面"]).single_click_left()
+    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["右側工具列_頁面_頁面清單第一項"]).single_click_right()
+    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["右側工具列_頁面_頁面清單第一項_複製跨頁"]).single_click_left()
+    helper.move_mouse_to(*MY_INDESIGN_BUTTON_POSITIONS["右側工具列_頁面_收起頁面"]).single_click_left()
+
+
 def single_run(helper: PyAutoGUIHelper, excel_data: pd.DataFrame, data_row_number: int = 0):
 
     # # 取得圖片下載網址
@@ -102,8 +110,8 @@ def single_run(helper: PyAutoGUIHelper, excel_data: pd.DataFrame, data_row_numbe
     # 保留截圖以供下次檢查定位點
     helper.create_a_screen_shot()
 
-    # 建立新圖
-    # todo
+    # 建立新圖給下一張操作
+    create_new_page(helper=helper)
 
 
 def main():
@@ -111,21 +119,22 @@ def main():
     # # https://unsplash.com/photos/3RIhxkIOBcE
     # get_unsplash_image("3RIhxkIOBcE")
 
-    # 查定位點
-    helper = PyAutoGUIHelper()
-    helper.show_mouse_position()
-    
-    # # # 運行任務
-    # # 自動化任務
+    # # 查定位點
     # helper = PyAutoGUIHelper()
+    # helper.show_mouse_position()
+    
+    # # 運行任務
+    # 自動化任務
+    helper = PyAutoGUIHelper()
 
-    # # 讀取Excel資料
-    # excel_data = read_excel_file(EXCEL_FILE_PATH)
+    # 讀取Excel資料
+    excel_data = read_excel_file(EXCEL_FILE_PATH)
 
-    # todo_rows = range(0, 1)
+    todo_rows = range(0, 1)
 
-    # for i in todo_rows:
-    #     single_run(helper=helper, excel_data=excel_data, data_row_number=i)
+    for i in todo_rows:
+        single_run(helper=helper, excel_data=excel_data, data_row_number=i)
+
 
 if __name__ == "__main__":
     main()
