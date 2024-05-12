@@ -44,6 +44,7 @@ class PyAutoGUIHelper:
         將滑鼠移動至指定位置
         """
         pyautogui.moveTo(x, y, duration=duration)
+        time.sleep(0.1)
         return self
 
     def get_mouse_position(self):
@@ -86,6 +87,7 @@ class PyAutoGUIHelper:
         單次點擊右鍵
         """
         pyautogui.click(button='right')
+        time.sleep(0.1)
         return self
 
     def single_click_left(self):
@@ -93,6 +95,7 @@ class PyAutoGUIHelper:
         單次點擊左鍵
         """
         pyautogui.click()
+        time.sleep(0.1)
         return self
 
     def double_click_right(self):
@@ -100,6 +103,7 @@ class PyAutoGUIHelper:
         雙次點擊右鍵
         """
         pyautogui.click(clicks=2, interval=0.5, button='right')
+        time.sleep(0.1)
         return self
 
     def double_click_left(self):
@@ -107,6 +111,7 @@ class PyAutoGUIHelper:
         雙次點擊左鍵
         """
         pyautogui.click(clicks=2, interval=0.5)
+        time.sleep(0.1)
         return self
 
     def open_task_manager(self):
@@ -114,6 +119,20 @@ class PyAutoGUIHelper:
         開啟工作管理員
         """
         pyautogui.hotkey('ctrl', 'shift', 'esc')
+        return self
+    
+    def use_any_hotkey(self, *args):
+        """
+        使用任何組合的熱鍵
+        """
+        pyautogui.hotkey(*args)
+        return self
+
+    def scroll_down(self, pixels=-100):
+        """
+        向下滾動滑鼠滾輪
+        """
+        pyautogui.scroll(pixels)
         return self
 
     def create_a_screen_shot(self):
