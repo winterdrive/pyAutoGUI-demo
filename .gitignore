@@ -4,3 +4,5 @@ photo/
 dataframe/
 venv/
 *.pyc
+credential/
+.env
