@@ -1,6 +1,9 @@
 # 文字資料
 EXCEL_FILE_PATH = "D:\\Users\\Downloads\\2025嚕嚕米日曆\\2025嚕嚕米日曆｜語錄編輯表單.xlsx"
 
+# 存放背景圖片的資料夾
+LOCAL_PHOTO_DIRECTORY = "D:\\Users\\Downloads\\2025嚕嚕米日曆\\lulumi"
+
 # my_calender_positions
 CALENDER_POSITIONS= {
     "月份": [1199, 770], 
