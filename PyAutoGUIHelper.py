@@ -32,14 +32,14 @@ class PyAutoGUIHelper:
         print(pyautogui.position())
         return self
 
-    def drag_to(self, x, y, duration=1.5, button='left'):
+    def drag_to(self, x, y, duration=0.2, button='left'):
         """
         將滑鼠拖曳至指定位置
         """
         pyautogui.dragTo(x, y, duration=duration, button=button)
         return self
 
-    def move_mouse_to(self, x, y, duration=0.5):
+    def move_mouse_to(self, x, y, duration=0.2):
         """
         將滑鼠移動至指定位置
         """
@@ -102,7 +102,7 @@ class PyAutoGUIHelper:
         """
         雙次點擊右鍵
         """
-        pyautogui.click(clicks=2, interval=0.5, button='right')
+        pyautogui.click(clicks=2, interval=0.3, button='right')
         time.sleep(0.1)
         return self
 
@@ -110,7 +110,7 @@ class PyAutoGUIHelper:
         """
         雙次點擊左鍵
         """
-        pyautogui.click(clicks=2, interval=0.5)
+        pyautogui.click(clicks=2, interval=0.3)
         time.sleep(0.1)
         return self
 

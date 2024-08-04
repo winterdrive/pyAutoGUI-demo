@@ -1,6 +1,7 @@
 import io
 import os
 import logging
+import traceback
 from typing import Optional
 from dotenv import load_dotenv
 from google.oauth2 import service_account
@@ -22,6 +23,8 @@ logger = logging.getLogger(__name__)
 UPLOAD_FOLDER = upload_folder
 SCOPES = ['https://www.googleapis.com/auth/drive']
 SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_SERVICE_ACCOUNT_FILE', credentials)
+OUTPUT_IMAGE_PATH = "D:\\Users\\Downloads\\信仰曆\\2025嚕嚕米日曆\\lulumi_new_image\\"
+EXCEL_FILE_PATH = "D:\\Users\\Downloads\\信仰曆\\2025嚕嚕米日曆\\2025嚕嚕米日曆_語錄編輯表單.xlsx"
 
 
 def get_drive_service():
@@ -75,9 +78,11 @@ def download_file(file_id: str, output_path: str):
         return file.getvalue()
     except HttpError as error:
         logger.error(f"An error occurred: {error}")
+        traceback.print_exc()
         raise
     except Exception as e:
         logger.error(f"Failed to download file: {e}")
+        traceback.print_exc()
         raise
 
 
@@ -102,10 +107,10 @@ def load_excel_to_get_download_url_by_pandas(excel_path: str):
 
 
 if __name__ == '__main__':
-    target_results = load_excel_to_get_download_url_by_pandas("credential/lulumi.xlsx")
+    target_results = load_excel_to_get_download_url_by_pandas(f"{EXCEL_FILE_PATH}")
     i = 1  # 設定初始編號
     for download_url in target_results:
-        output_path = f"screenshot/lulumi/{str(i).zfill(3)}.jpg"
+        output_path = f"{OUTPUT_IMAGE_PATH}{str(i).zfill(3)}.jpg"
 
         if os.path.exists(output_path):
             print(f"{output_path} 已存在。")

@@ -1,9 +1,15 @@
 import requests
 import json
-from config import UNSPLASH_ACCESS_KEY
+from config.base_config import UNSPLASH_ACCESS_KEY
 
-def get_unsplash_image(photo_id: str) -> None:
+def get_unsplash_image(photo_id: str, save_dir:str) -> None:
     """Downloads an image from Unsplash."""
+    # check if file already exists
+    import os
+    if os.path.exists(f"{save_dir}/{photo_id}.jpg"):
+        print('The image already exists.')
+        return
+
     url = f"https://api.unsplash.com/photos/{photo_id}?client_id={UNSPLASH_ACCESS_KEY}"
     # print(url)
     headers = {
@@ -14,11 +20,12 @@ def get_unsplash_image(photo_id: str) -> None:
         data = json.loads(response.text)
         # print(data)
         download_url = data['urls']['raw']
-        with open(f"./photo/{photo_id}.jpg", "wb") as file:
+        with open(f"{save_dir}/{photo_id}.jpg", "wb") as file:
             res = requests.get(download_url, stream=True, headers=headers)
             file.write(res.content)
     else:
         print('Failed to download the image.')
+        raise Exception('Failed to download the image.')
 
 if __name__ == '__main__':
     # get_unsplash_image("3RIhxkIOBcE")
