@@ -6,3 +6,4 @@ venv/
 *.pyc
 credential/
 .env
+client_secret*
