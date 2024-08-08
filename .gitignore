@@ -7,3 +7,4 @@ venv/
 credential/
 .env
 client_secret*
+token.json
