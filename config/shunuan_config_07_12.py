@@ -2,7 +2,8 @@
 EXCEL_FILE_PATH = "D:\\Users\\Downloads\\信仰曆\\2025煦暖曆\\2025煦暖曆_7-12.xlsx"
 
 # Unsplash API
-UNSPLASH_ACCESS_KEY = "bGW_6q4TAp_kKs1X3ZKD3F4wlOqY5pgHEPu92B0m4Uc"
+load_dotenv()
+UNSPLASH_ACCESS_KEY = os.getenv('UNSPLASH_ACCESS_KEY')
 
 # 存放背景圖片的資料夾
 LOCAL_PHOTO_DIRECTORY = "D:\\Users\\Downloads\\信仰曆\\2025煦暖曆\\(1) 日曆圖片"
