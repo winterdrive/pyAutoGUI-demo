@@ -9,6 +9,10 @@ import pyperclip
 並在調用 run_chatgpt 方法前，先將瀏覽器視窗移到右側，並將滑鼠移動到 ChatGPT 文字輸入位置
 """
 
+CLICK_INTERVAL = 0.3
+MOUSE_MOVE_DURATION = 0.2
+DEFAULT_DELAY = 0.3
+
 
 class PyAutoGUIHelper:
     def __init__(self):
@@ -32,19 +36,19 @@ class PyAutoGUIHelper:
         print(pyautogui.position())
         return self
 
-    def drag_to(self, x, y, duration=0.2, button='left'):
+    def drag_to(self, x, y, duration=MOUSE_MOVE_DURATION, button='left'):
         """
         將滑鼠拖曳至指定位置
         """
         pyautogui.dragTo(x, y, duration=duration, button=button)
         return self
 
-    def move_mouse_to(self, x, y, duration=0.2):
+    def move_mouse_to(self, x, y, duration=MOUSE_MOVE_DURATION):
         """
         將滑鼠移動至指定位置
         """
         pyautogui.moveTo(x, y, duration=duration)
-        time.sleep(0.1)
+        time.sleep(DEFAULT_DELAY)
         return self
 
     def get_mouse_position(self):
@@ -87,7 +91,7 @@ class PyAutoGUIHelper:
         單次點擊右鍵
         """
         pyautogui.click(button='right')
-        time.sleep(0.1)
+        time.sleep(DEFAULT_DELAY)
         return self
 
     def single_click_left(self):
@@ -95,23 +99,23 @@ class PyAutoGUIHelper:
         單次點擊左鍵
         """
         pyautogui.click()
-        time.sleep(0.1)
+        time.sleep(DEFAULT_DELAY)
         return self
 
     def double_click_right(self):
         """
         雙次點擊右鍵
         """
-        pyautogui.click(clicks=2, interval=0.3, button='right')
-        time.sleep(0.1)
+        pyautogui.click(clicks=2, interval=CLICK_INTERVAL, button='right')
+        time.sleep(DEFAULT_DELAY)
         return self
 
     def double_click_left(self):
         """
         雙次點擊左鍵
         """
-        pyautogui.click(clicks=2, interval=0.3)
-        time.sleep(0.1)
+        pyautogui.click(clicks=2, interval=CLICK_INTERVAL)
+        time.sleep(DEFAULT_DELAY)
         return self
 
     def open_task_manager(self):

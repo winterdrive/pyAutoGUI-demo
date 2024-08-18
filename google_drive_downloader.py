@@ -23,8 +23,8 @@ logger = logging.getLogger(__name__)
 UPLOAD_FOLDER = upload_folder
 SCOPES = ['https://www.googleapis.com/auth/drive']
 SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_SERVICE_ACCOUNT_FILE', credentials)
-OUTPUT_IMAGE_PATH = "D:\\Users\\Downloads\\信仰曆\\2025嚕嚕米日曆\\lulumi_new_image\\"
-EXCEL_FILE_PATH = "D:\\Users\\Downloads\\信仰曆\\2025嚕嚕米日曆\\2025嚕嚕米日曆_語錄編輯表單.xlsx"
+OUTPUT_IMAGE_PATH = "D:\\Users\\Downloads\\信仰曆\\2025嚕嚕米日曆\\lulumi圖\\"
+EXCEL_FILE_PATH = "D:\\Users\\Downloads\\信仰曆\\2025嚕嚕米日曆\\2025嚕嚕米日曆｜語錄編輯表單 - 唐看這個.xlsx"
 
 
 def get_drive_service():
